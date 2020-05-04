@@ -49,9 +49,10 @@
           <i class="fa fa-bell-o"> </i> Warning
           <!-- <span class="badge badge-info">0</span> -->
         </a>
-        <!-- <a class="dropdown-item" routerLink="/messages" routerLinkActive="active">
-          <i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">0</span>
-        </a> -->
+        <a class="dropdown-item" routerLink="/email" routerLinkActive="active">
+          <i class="fa fa-envelope-o"></i> Email
+          
+        </a>
         <a class="dropdown-item" routerLink="/users" routerLinkActive="active" *ngIf="user.isAdmin">
           <i class="fa fa-envelope-o"></i>Users 
           <!-- <span class="badge badge-success">{{users_total}}</span> -->

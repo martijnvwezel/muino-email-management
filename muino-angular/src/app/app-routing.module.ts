@@ -118,6 +118,14 @@ const routes: Routes = [
         data: { 
           expectedRole: 'admin'
         } 
+      },
+      {
+        path: "email",
+        loadChildren: () => import('./views/email/email.module').then(m => m.EmailModule),
+        canActivate: [RoleGuardService],
+        data: { 
+          expectedRole: 'admin'
+        } 
       }
     ] 
   }, {
