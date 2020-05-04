@@ -1,8 +1,8 @@
 <header class="app-header navbar">
   <ng-template [ngIf]="mobileSidebarToggler != false">
-    <button class="navbar-toggler d-lg-none" type="button" appSidebarToggler>
+    <!-- <button class="navbar-toggler d-lg-none" type="button" appSidebarToggler>
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
   </ng-template>
   <ng-template [ngIf]="navbarBrand || navbarBrandFull || navbarBrandMinimized">
     <a class="navbar-brand" href="#">
@@ -12,11 +12,11 @@
       <img *ngIf="navbarBrandMinimized" [src]="imgSrc(navbarBrandMinimized)" [attr.width]="imgWidth(navbarBrandMinimized)" [attr.height]="imgHeight(navbarBrandMinimized)" [attr.alt]="imgAlt(navbarBrandMinimized)" class="navbar-brand-minimized">
     </a>
   </ng-template>
-  <div *ngIf="sidebarToggler != false">
+  <!-- <div *ngIf="sidebarToggler != false">
     <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler [appSidebarToggler]="sidebarToggler">
       <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
+    </button> 
+  </div>-->
 
   <ul class="nav navbar-nav d-md-down-none">
     <!-- <li *ngIf="dashboard_exist" class="nav-item px-3">

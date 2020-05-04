@@ -112,27 +112,12 @@ const routes: Routes = [
         } 
       },
       {
-        path: "projects",
-        loadChildren: () => import('./views/project/project.module').then(m => m.ProjectModule),
-        canActivate: [LogInAsUser]
-      },
-      {
         path: "accounting",
         loadChildren: () => import('./views/accounting/accounting.module').then(m => m.AccountingModule),
         canActivate: [RoleGuardService],
         data: { 
           expectedRole: 'admin'
         } 
-      },
-      {
-        path: "reports",
-        loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule),
-        canActivate: [LogInAsUser]
-      },
-      {
-        path: "prikklok",
-        loadChildren: () => import('./views/prikklok/prikklok.module').then(m => m.PrikklokModule),
-        canActivate: [LogInAsUser]
       }
     ] 
   }, {
