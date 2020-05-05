@@ -39,6 +39,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.7.10",
     "morgan": "^1.9.1",
+    "mysql": "^2.18.1",
     "nodemailer": "^6.4.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",

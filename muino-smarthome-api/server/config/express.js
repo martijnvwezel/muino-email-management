@@ -13,6 +13,8 @@ const routes = require('../routes/index.route');
 const config = require('./config');
 const passport = require('./passport')
 const cors = require('cors');
+const MysqlClient = require('./mysqldatabase');
+
 
 const app = express(); 
 // app.use(compression());

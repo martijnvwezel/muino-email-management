@@ -28,7 +28,7 @@ const localLogin = new LocalStrategy({
     console.log("username", email);
   }
 
-  var bcrypt_ans = false;
+  let bcrypt_ans = false;
   let user_old_hash_system = false;
   if (user && (user.nSalt && user.hashedPassword)) {
     // take the login.password add some salt and a sha512 hash then the          
@@ -39,8 +39,8 @@ const localLogin = new LocalStrategy({
       let status = {};
       status.source = "LocalLogin"
       status.type = "Warning";
-      status.causedBy = "(passport.js:41) User hash not a hashpasswd";
-      var ip ="....";// req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+      status.causedBy = "(passport.js:42) User hash not a hashpasswd";
+      let ip =req.headers['x-forwarded-for'] || req.connection.remoteAddress || "....";
       status.extra = user._id + " ; " + user.fullname + " ; "+ip+";";
       warningCtrl.saveWarning(status);
       user_old_hash_system = true;
@@ -48,8 +48,8 @@ const localLogin = new LocalStrategy({
       let status = {};
       status.source = "LocalLogin"
       status.type = "error";
-      status.causedBy = "(passport.js:48) Cannot find user in database.";
-      var ip ="....";// req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+      status.causedBy = "(passport.js:51) Cannot find user in database.";
+      let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || "....";
       status.extra = JSON.stringify(user) +";"+ip;
       warningCtrl.saveWarning(status);
     }
@@ -61,7 +61,7 @@ const localLogin = new LocalStrategy({
     status.source = "LocalLogin"
     status.type = "warning";
     status.causedBy = "(passport.js:63) User login failed.";
-    var ip ="....";// req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || "....";
     status.extra = JSON.stringify(user)+";"+ip;
     warningCtrl.saveWarning(status);
     return done(null, false, { error: 'Your login details could not be verified. Please try again.' });
@@ -88,8 +88,8 @@ const localLogin = new LocalStrategy({
     let status = {};
     status.source = "LocalLogin"
     status.type = "ATTENTION";
-    status.causedBy = "(passport.js:87) User account UPDATED.";
-    var ip ="....";// req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    status.causedBy = "(passport.js:91) User account UPDATED.";
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || "....";
     status.extra = JSON.stringify(user)+";"+ip;
     warningCtrl.saveWarning(status);
 
@@ -102,9 +102,9 @@ const localLogin = new LocalStrategy({
   let status = {};
   status.source = "LocalLogin"
   status.type = "succes";
-  status.causedBy = "(passport.js:88) login Success.";
+  status.causedBy = "(passport.js:105) login Success.";
   status.extra = user.email+";"+ip;
-  var ip ="....";// req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || "....";
   warningCtrl.saveWarning(status);
   
   done(null, user);
@@ -116,7 +116,7 @@ const jwtLogin = new JwtStrategy({
 }, async (payload, done) => {
   console.log(payload._id );
   
-  var user  = await getRedis(payload._id);
+  let user  = await getRedis(payload._id);
 
   // console.log('user FROM REDIS: ', user);
 
