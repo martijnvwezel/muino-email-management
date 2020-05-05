@@ -1,34 +1,140 @@
 <div class="animated fadeIn ">
     <div class="card">
-        <div class="card-header"> Report generator </div>
+        <!-- <div class="card-header"> Changes for a domain </div> -->
         <div class="card-body">
 
+            <!-- Selecting the domain name -->
+            <mat-form-field class="col-12 col-md-4">
+                <mat-label>Select Domain </mat-label>
+                <mat-select [(value)]="domainSelect1" required>
+                    <mat-option *ngFor="let domain of DomainType$" [value]="domain"> {{ domain }} </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-          
+
+        </div>
+    </div>
+</div>
 
 
 
-            <!-- <div class="row">
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Filename</mat-label>
-                    <input matInput type="text" [value]="filename" placeholder="filename" required/>
-                </mat-form-field>
 
-            </div> -->
+<div class="animated fadeIn ">
+    <div class="card">
+        <!-- <div class="card-header"> Changes for a domain </div> -->
+        <div class="card-body">
 
-            <div class="row">
-                <!-- <div class="col-12 col-md-7">
-                <p>When multiple users or years are selected, multiple files will be downloaded. If your browser gives a warning multiple files are being downloaded: press accept</p>
-                <p> In normal browsers there is a info button in the url, where you can enable it (if you pressed the wrong button)</p>
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">User changes</h4>
+                <div class="small text-muted">To change emails</div>
             </div>
-    	    </div> -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><a class="small text-muted"> Email </a></th>
+                        <th><a class="small text-muted"> Password </a></th>
+                        <th><a class="small text-muted"> Created on </a></th>
+                        <th><a class="small text-muted"> Update</a></th>
+                        <th><a class="small text-muted"> Delete</a></th>
+                    </tr>
+                </thead>
+
+                <tbody *ngIf="DomainType$?.length != 0">
+                    <tr class="small text-muted" *ngFor="let user of Domain$.user">
+                        <td>
+                            <mat-form-field class="width-tb"> <input matInput type="text" [(ngModel)]="user.email">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="width-tb"> <input matInput type="text" [(ngModel)]="user.password">
+                            </mat-form-field>
+                        </td>
+                        <td> {{ clean_date(user.createdAt) }}</td>
+                        <!-- if edit is true then save button show -->
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save"
+                                (click)="save_user(user._id)" />
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete"
+                                (click)="remove_user(user._id)" />
+                    </tr>
+                </tbody>
+                <tbody *ngIf="DomainType$?.length == 0">
+                    <tr>
+                        <td colspan="5" class="no-data-available">No data!</td>
+                    </tr>
+                <tbody>
+            </table>
+
 
             <div class="row">
                 <div class="col-12 col-md-4">
-                    <input type="button" class="btn btn-outline-dark" value="Get report(s)" (click)="download_reports()" />
+                    <input type="button" class="btn btn-outline-dark" value="Add user" (click)="add_row('user')" />
                 </div>
             </div>
 
+
         </div>
+
+    </div>
+</div>
+<div class="animated fadeIn ">
+    <div class="card">
+        <!-- <div class="card-header"> Changes for a domain </div> -->
+        <div class="card-body">
+
+
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">Aliases</h4>
+                <div class="small text-muted">To alias emails</div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><a class="small text-muted"> Email Source</a></th>
+                        <th><a class="small text-muted"> Email Destination </a></th>
+                        <th><a class="small text-muted"> Created on </a></th>
+                        <th><a class="small text-muted"> Update</a></th>
+                        <th><a class="small text-muted"> Delete</a></th>
+                    </tr>
+                </thead>
+
+                <tbody *ngIf="DomainType$?.length != 0">
+                    <tr class="small text-muted" *ngFor="let aliases of Domain$.aliases">
+                        <td>
+                            <mat-form-field class="width-tb"> <input matInput type="text" [(ngModel)]="aliases.source">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="width-tb"> <input matInput type="text" [(ngModel)]="aliases.destination">
+                            </mat-form-field>
+                        </td>
+                        <td> {{ clean_date(aliases.createdAt) }}</td>
+                        <!-- if edit is true then save button show -->
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save"
+                                (click)="save_aliases(aliases._id)" />
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete"
+                                (click)="remove_aliases(aliases._id)" />
+                    </tr>
+                </tbody>
+                <tbody *ngIf="DomainType$?.length == 0">
+                    <tr>
+                        <td colspan="5" class="no-data-available">No data!</td>
+                    </tr>
+                <tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <input type="button" class="btn btn-outline-dark" value="Add alias" (click)="add_row('aliases')"/>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
     </div>
 </div>
