@@ -1,5 +1,5 @@
 [Currently under development]
-Begin of  June the first alpa version will be ready.
+Begin of  July the first alpa version will be ready.
 
 # Muino Email Management
 The Muino email ISP admin management
