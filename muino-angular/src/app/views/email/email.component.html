@@ -51,10 +51,8 @@
                         </td>
                         <td> {{ clean_date(user.createdAt) }}</td>
                         <!-- if edit is true then save button show -->
-                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save"
-                                (click)="save_user(user._id)" />
-                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete"
-                                (click)="remove_user(user._id)" />
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save" (click)="save_user(user._id)" /> </td>
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete" (click)="remove_user(user._id)" /></td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="DomainType$?.length == 0">
@@ -109,10 +107,8 @@
                         </td>
                         <td> {{ clean_date(aliases.createdAt) }}</td>
                         <!-- if edit is true then save button show -->
-                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save"
-                                (click)="save_aliases(aliases._id)" />
-                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete"
-                                (click)="remove_aliases(aliases._id)" />
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save" (click)="save_aliases(aliases._id)" /></td>
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete" (click)="remove_aliases(aliases._id)" /></td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="DomainType$?.length == 0">
@@ -152,7 +148,7 @@
         <div class="card-body">
 
 
-            <div class="col-sm-5">
+            <div class="col-lg-4 col-sm-5">
                 <h4 class="card-title mb-0">Domains</h4>
                 <div class="small text-muted">Domains hosted on the server</div>
             </div>
@@ -169,15 +165,14 @@
                 <tbody *ngIf="DomainType$?.length != 0">
                     <tr class="small text-muted" *ngFor="let domain of Domain$.domains">
                         <td>
-                            <mat-form-field class="width-tb"> <input matInput type="text" [(ngModel)]="domain.source">
+                            <mat-form-field class="width-tb"> 
+                                <input matInput type="text" [(ngModel)]="domain.source">
                             </mat-form-field>
                         </td>                    
                         <td> {{ clean_date(domain.createdAt) }}</td>
                         <!-- if edit is true then save button show -->
-                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save"
-                                (click)="save_domain(domain._id)" />
-                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete"
-                                (click)="remove_domain(domain._id)" />
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save" (click)="save_domain(domain._id)" /></td>
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete" (click)="remove_domain(domain._id)" /></td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="DomainType$?.length == 0">

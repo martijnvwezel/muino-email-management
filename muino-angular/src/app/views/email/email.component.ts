@@ -16,6 +16,7 @@ export class EmailComponent implements OnInit {
   public DomainType$: string[] = ['---'];
   public temp = 'temp'; 
   public Domain$: object;
+  public domainSelect1 = '---';
 
   constructor(private http: HttpClient, private warning: EmailService) { }
 
@@ -34,11 +35,12 @@ export class EmailComponent implements OnInit {
       ]
       ,
       'domains':[
-        {source:'m1@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2018-12-14T15:38:08.280Z" },
-        {source:'m2@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2019-12-15T15:38:09.280Z" },
-        {source:'m3@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2020-12-16T15:38:07.280Z" }
+        {source:'muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2018-12-14T15:38:08.280Z" },
+        {source:'example.com', _id: 'JDII3JN20FGJ', createdAt: "2019-12-15T15:38:09.280Z" }
       ]
     }
+    this.DomainType$.push(this.Domain$['domain']);
+    this.domainSelect1 = this.Domain$['domain'];
 
   }
 
