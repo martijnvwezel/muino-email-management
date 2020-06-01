@@ -32,11 +32,17 @@ export class EmailComponent implements OnInit {
         {source:'m2@muino.nl', destination:'beast2@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2019-12-15T15:38:09.280Z" },
         {source:'m3@muino.nl', destination:'beast3@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2020-12-16T15:38:07.280Z" }
       ]
+      ,
+      'domains':[
+        {source:'m1@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2018-12-14T15:38:08.280Z" },
+        {source:'m2@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2019-12-15T15:38:09.280Z" },
+        {source:'m3@muino.nl', _id: 'JDII3JN20FGJ', createdAt: "2020-12-16T15:38:07.280Z" }
+      ]
     }
 
   }
 
-  // * users
+  // * Users
   public save_user(user_id){
     // if(user_id in this.Domain$.user._id){
       console.log("saved user");
@@ -49,7 +55,7 @@ export class EmailComponent implements OnInit {
     // }
   }
 
- // * aliases
+ // * Aliases
   public save_aliases(aliases_id){
     // if(aliases_id in this.Domain$.aliases._id){
       console.log("saved aliases");
@@ -61,6 +67,27 @@ export class EmailComponent implements OnInit {
       console.log("removed aliases");
     // }
   }
+
+
+ // * Domain
+ public save_domain(domain_id){
+  // if(domain_id in this.Domain$.domain._id){
+    console.log("saved domain");
+  // }
+}
+
+public remove_domain(domain_id){
+  // if(domain_id in this.Domain$.domain._id){
+    console.log("removed domain");
+  // }
+}
+
+
+
+
+
+
+
 
   public add_row(typerow){
     if(typerow ==='user'){

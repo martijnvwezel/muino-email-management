@@ -138,3 +138,68 @@
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+<div class="animated fadeIn ">
+    <div class="card">
+        <!-- <div class="card-header"> Changes for a domain </div> -->
+        <div class="card-body">
+
+
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">Domains</h4>
+                <div class="small text-muted">Domains hosted on the server</div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><a class="small text-muted"> Domain name</a></th>
+                        <th><a class="small text-muted"> Created on </a></th>
+                        <th><a class="small text-muted"> Update</a></th>
+                        <th><a class="small text-muted"> Delete</a></th>
+                    </tr>
+                </thead>
+
+                <tbody *ngIf="DomainType$?.length != 0">
+                    <tr class="small text-muted" *ngFor="let domain of Domain$.domains">
+                        <td>
+                            <mat-form-field class="width-tb"> <input matInput type="text" [(ngModel)]="domain.source">
+                            </mat-form-field>
+                        </td>                    
+                        <td> {{ clean_date(domain.createdAt) }}</td>
+                        <!-- if edit is true then save button show -->
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-dark" value="Save"
+                                (click)="save_domain(domain._id)" />
+                        <td class="small text-muted"><input type="button" class="btn btn-outline-danger" value="Delete"
+                                (click)="remove_domain(domain._id)" />
+                    </tr>
+                </tbody>
+                <tbody *ngIf="DomainType$?.length == 0">
+                    <tr>
+                        <td colspan="5" class="no-data-available">No data!</td>
+                    </tr>
+                <tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <input type="button" class="btn btn-outline-dark" value="Add alias" (click)="add_row('aliases')"/>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
