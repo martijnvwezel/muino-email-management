@@ -1,162 +1,206 @@
 'use strict';
-
+/*
+* Copyright (c) 2020 Muino
+* name: Martijn van Wezel   martijnvwezel@muino.nl
+* bugs:
+*       - TODO: implement catch function for when a domain does not exist
+* comment:
+ *       -
+*/
 const Joi = require('joi');
 let Email = require('../models/email.model');
 
 module.exports = {
-    removeEmail,
-    getEamil,
-    changeEmail,
-    insertEmail,
+    removeUser,
+    getUser,
+    changeUser,
+    insertUser,
 
     removeDomain,
     getDomain,
     changeDomain,
     insertDomain,
 
-    removeAliases,
-    getAliases,
-    changeAliases,
-    insertAliases
-
-
+    removeAlias,
+    getAlias,
+    changeAlias,
+    insertAlias,
 }
 
 
 // !==================================================
-// !                  Email stuff
+// !                  User part
 // !==================================================
-
-
-
 
 const newEmailScheme = Joi.object({
-  email: Joi.string(),
-  password: Joi.string()
+    domain: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string()
 });
 
-
-const changeEmailScheme = Joi.object({
-    oldemail: Joi.string().required(),
-    email: Joi.string().required(),
-    password: Joi.string().allow('')
-  });
-  
-
-
-// TODO Implement this function
-async function removeEmail(req, res) {
-    return res.json({ success: true });
-}
-
-// TODO Implement this function
-async function getEamil(req, res) {
-
+async function removeUser(req, res) {
     const result = Joi.validate(req.body, newEmailScheme);
 
     if (result.error) {
         return res.status(400).json({ success: false, result: result.error });
     }
 
-    let email =   Email.getAllEmail("1" );
+    let email = await Email.deleteUser(result.value.email);
 
-    console.log('Email get all emails')
-    
-    console.log('res', email);
-    
+    return res.json({ success: true, email });
+}
 
+async function getUser(req, res) {
+    const result = Joi.validate(req.body, newEmailScheme);
 
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.getUsers();
+
+    return res.json({ success: true, email });
+}
+
+async function changeUser(req, res) {
+
+    const result = Joi.validate(req.body, newEmailScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+    let email = await Email.updateUser(result.value);
     return res.json({ success: true, email});
 }
 
-// TODO Implement this function
-async function changeEmail(req, res) {
-
-    const result = Joi.validate(req.body, changeEmailScheme);
-
-    if (result.error) {
-        return res.status(400).json({ success: false, result: result.error });
-    }
-
-    return res.json({ success: true });
-}
-
-// TODO Implement this function
-async function insertEmail(req, res) {
-
+async function insertUser(req, res) {
     const result = Joi.validate(req.body, newEmailScheme);
 
     if (result.error) {
         return res.status(400).json({ success: false, result: result.error });
     }
 
-    let email = await new newEmail_data(Result.value).save(); // TODO: mongodb to mysql
+    let email = await Email.insertUser(result.value.domain, result.value.email, result.value.password);
 
-    return res.json({ success: true, email: email.email  });
+    return res.json({ success: true, email });
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
 // !==================================================
-// !                  Domain stuff
+// !                  Domain part
 // !==================================================
 
-// TODO Implement this function
+const domainScheme = Joi.object({
+    domain: Joi.string()
+});
+
+
+
 async function removeDomain(req, res) {
-    return res.json({ success: true });
+    const result = Joi.validate(req.body, domainScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.deleteDomain(result.value.domain);
+
+    return res.json({ success: true, email });
 }
 
-// TODO Implement this function
 async function getDomain(req, res) {
-    return res.json({ success: true });
+    const result = Joi.validate(req.body, domainScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.getDomains();
+
+    return res.json({ success: true, email });
 }
 
-// TODO Implement this function
 async function changeDomain(req, res) {
-    return res.json({ success: true });
+
+    const result = Joi.validate(req.body, domainScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+    let email = await Email.updateDomain(result.value);
+    return res.json({ success: true, email});
 }
 
-// TODO Implement this function
 async function insertDomain(req, res) {
-    return res.json({ success: true });
-}
 
+    const result = Joi.validate(req.body, domainScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.insertDomain(result.value.domain);
+
+    return res.json({ success: true, email });
+}
 
 
 
 // !==================================================
-// !                  Aliases stuff
+// !                  Aliases part
 // !==================================================
 
+const aliasScheme = Joi.object({
+    domain: Joi.string(), 
+    source: Joi.string(), 
+    destination: Joi.string() 
+});
 
+async function removeAlias(req, res) {
+    const result = Joi.validate(req.body, aliasScheme);
 
-// TODO Implement this function
-async function removeAliases(req, res) {
-    return res.json({ success: true });
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.deleteAliases(result.value.source);
+
+    return res.json({ success: true, email });
 }
 
-// TODO Implement this function
-async function getAliases(req, res) {
-    return res.json({ success: true });
+async function getAlias(req, res) {
+    const result = Joi.validate(req.body, aliasScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.getAliases();
+
+    return res.json({ success: true, email });
 }
 
-// TODO Implement this function
-async function changeAliases(req, res) {
-    return res.json({ success: true });
+async function changeAlias(req, res) {
+
+    const result = Joi.validate(req.body, aliasScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+    let email = await Email.updateAliases(result.value);
+    return res.json({ success: true, email});
 }
 
-// TODO Implement this function
-async function insertAliases(req, res) {
-    return res.json({ success: true });
-}
+async function insertAlias(req, res) {
 
+    const result = Joi.validate(req.body, aliasScheme);
+
+    if (result.error) {
+        return res.status(400).json({ success: false, result: result.error });
+    }
+
+    let email = await Email.insertAliases(result.value.domain, result.value.source, result.value.destination);
+
+    return res.json({ success: true, email });
+}
