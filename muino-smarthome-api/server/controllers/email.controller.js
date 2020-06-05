@@ -172,7 +172,7 @@ async function removeAlias(req, res) {
 async function getAlias(req, res) {
     const result = Joi.validate(req.body, aliasScheme);
 
-    if (result.error) {
+    if (result.error) { 
         return res.status(400).json({ success: false, result: result.error });
     }
 
@@ -203,4 +203,4 @@ async function insertAlias(req, res) {
     let email = await Email.insertAliases(result.value.domain, result.value.source, result.value.destination);
 
     return res.json({ success: true, email });
-}
+} 

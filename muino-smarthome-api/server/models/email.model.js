@@ -4,8 +4,9 @@
 * name: Martijn van Wezel   martijnvwezel@muino.nl
 * bugs:
 *       - TODO: implement TODO functions
+*
 * comment:
- *       -
+*       - Issue with insertUser that the hash should be 
 */
 
 const db = require('../config/mysqldatabase');
@@ -31,14 +32,38 @@ module.exports = {
 
 
 // * User
-async function getUsers() {
-    return result = await dbQuery('SELECT d.name, u.email FROM virtual_users AS u INNER JOIN virtual_domains AS d ON (d.id = u.domain_id);');
+async function getUsers() {// * Limited to 100 items
+    return result = await dbQuery('SELECT d.name, u.email FROM virtual_users AS u INNER JOIN virtual_domains AS d ON (d.id = u.domain_id) LIMIT 0, 200;');
 }
 
+ 
 async function insertUser(domain, email, password) {
-    let pwdHash = crypto.createHmac('sha256', password);
+    // let length = 16;
+    // let salt = crypto.randomBytes(Math.ceil(length/2)).toString('hex').slice(0,length);
+    // salt = 'f2a4385dd16101f3';
+    // const hashedSaltPwd = crypto.createHmac('sha256', salt).update(password).digest('hex');
+
+    // console.log('Password: ', password);    
+    // console.log('salt: ', salt);
+    // console.log('hashedSaltPwd: ', hashedSaltPwd);
+    // console.log('Expected: \n {SHA256-CRYPT}$5$f2a4385dd16101f3$pq18vUF9GZLi0YLwB5CNzuwOISxTSMwpF8BBqncerS5');
+    
+    
+    // {SHA256-CRYPT}$5$f2a4385dd16101f3$pq18vUF9GZLi0YLwB5CNzuwOISxTSMwpF8BBqncerS5
+    // {SHA256-CRYPT}$5$f2a4385dd16101f3$21c7c38080ee7a1ecd5e5e522490080a6105695c37acb60377d56e7ac56f2d85
+    // $5$BIER$Kf993hWfcQQlkxA10xtzsZA3z1NaIKr6OEu7vht.II9
+    
+    // const pwdHash = "{SHA256-CRYPT}$5$"+salt+'$'+hashedSaltPwd;
+    // console.log("Got:\n",pwdHash);    
     return result = await dbQuery('INSERT INTO virtual_users (domain_id, email, password) VALUES ( (SELECT id FROM virtual_domains WHERE name='+domain+'), '+email+', '+pwdHash+');'); 
+    // let result = await dbQuery('INSERT INTO virtual_users (domain_id, email, password) VALUES ( (SELECT id FROM virtual_domains WHERE name="'+domain+'"), "'+email+'", CONCAT("{SHA256-CRYPT}", ENCRYPT("'+password+'", CONCAT("$5$", SUBSTRING(SHA(RAND()), -16)))));'); 
+    // if(result.sqlMessage=="Column 'password' cannot be null"){
+    //     console.log();  
+    //     throw"Does not  work in windows, no crypto lib given";
+    // }
+    // return result;
 }
+
 
 async function deleteUser(email) {
     return result = await dbQuery('DELETE FROM virtual_users WHERE email='+email+';');
