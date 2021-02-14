@@ -1,5 +1,5 @@
 [Currently under development]
-Begin of  July the first alpa version will be ready.
+Begin of May the first alpa version will be ready. Finishing my thesis took a bit more effort.
 
 # Muino Email Management
 The Muino email ISP admin management that works with [workaround ISP mail](https://workaround.org/ispmail/stretch/whats-new)
